@@ -1,0 +1,115 @@
+{
+  "_comment": "Custom metadata for gallery artifacts. Keys are relative paths inside artifacts/.",
+
+  "_folder_defaults": {
+    "onco-ideias": {
+      "tags": ["oncology", "research"]
+    },
+    "shiny-apps": {
+      "tags": ["shiny", "R", "interactive"]
+    },
+    "quarto": {
+      "tags": ["quarto", "R", "reporting"]
+    },
+    "dashboards": {
+      "tags": ["dashboard", "interactive"]
+    }
+  },
+
+  "onco-ideias/rhc-2014-2016/rhc14_survival_dashboard.html": {
+    "title": "RHC Survival Dashboard",
+    "tags": ["survival-analysis", "RHC", "dashboard"]
+  },
+  "onco-ideias/rhc-2014-2016/rhc14_equity_analysis.html": {
+    "title": "RHC Equity Analysis",
+    "tags": ["equity", "disparities", "RHC", "dashboard"]
+  },
+  "onco-ideias/rhc-2014-2016/rhc14_data_profile.md": {
+    "title": "RHC Data Profile",
+    "tags": ["data-profile", "RHC"]
+  },
+  "onco-ideias/elsi-idosos-onco/ELSI_dashboard.html": {
+    "title": "ELSI Elderly+Onco Dashboard",
+    "tags": ["ELSI", "elderly", "dashboard"]
+  },
+  "onco-ideias/elsi-idosos-onco/ELSI_Brasil_Wave1_Data_Profile.md": {
+    "title": "ELSI Brasil Wave 1 Profile",
+    "tags": ["ELSI", "data-profile", "elderly"]
+  },
+  "onco-ideias/elsi-idosos-onco/ELSI_linkage_report.md": {
+    "title": "ELSI Linkage Report",
+    "tags": ["ELSI", "data-linkage"]
+  },
+  "onco-ideias/elsi-idosos-onco/ELSI_panel_summary.csv": {
+    "title": "ELSI Panel Summary",
+    "tags": ["ELSI", "dataset"]
+  },
+  "onco-ideias/elsi-idosos-onco/ELSI_linkage_key.csv": {
+    "title": "ELSI Linkage Key",
+    "tags": ["ELSI", "dataset"]
+  },
+  "onco-ideias/onco-penalty/oncologic-penalty-manuscript.docx": {
+    "title": "Oncologic Penalty - ML Screening Triage",
+    "tags": ["machine-learning", "breast-cancer", "screening", "manuscript"]
+  },
+  "onco-ideias/onco-penalty/analysis-code.ipynb": {
+    "title": "Onco-Penalty Analysis Code",
+    "tags": ["machine-learning", "jupyter", "breast-cancer"]
+  },
+  "onco-ideias/onco-penalty/overview.pdf": {
+    "title": "Onco-Penalty Overview",
+    "tags": ["breast-cancer", "screening"]
+  },
+  "onco-ideias/onco-penalty/notes-concepts.docx": {
+    "title": "Onco-Penalty Notes & Concepts",
+    "tags": ["breast-cancer", "brainstorm"]
+  },
+  "onco-ideias/glp1-breast-cancer/study-protocol.docx": {
+    "title": "GLP-1 + Breast Cancer Protocol",
+    "tags": ["GLP-1", "breast-cancer", "protocol", "TriNetX"]
+  },
+  "onco-ideias/glp1-breast-cancer/glp1-breast-cancer.docx": {
+    "title": "GLP-1 + Breast Cancer",
+    "tags": ["GLP-1", "breast-cancer", "TriNetX"]
+  },
+  "onco-ideias/meta-analysis/melanoma-brain-metastases.docx": {
+    "title": "Melanoma with Brain Metastases - Meta-Analysis",
+    "tags": ["melanoma", "brain-metastases", "meta-analysis"]
+  },
+  "onco-ideias/neuro-breast/neuro-onco.docx": {
+    "title": "Neuro + Oncology",
+    "tags": ["neurology", "breast-cancer"]
+  },
+  "shiny-apps/metainsight.html": {
+    "title": "MetaInsight",
+    "tags": ["NMA", "meta-analysis", "network"]
+  },
+  "shiny-apps/tsa-observatory.html": {
+    "title": "TSA Observatory",
+    "tags": ["TSA", "clinical-trials", "AI"]
+  },
+  "shiny-apps/meta-analysis-api.html": {
+    "title": "Meta-Analysis API",
+    "tags": ["API", "meta-analysis", "metafor"]
+  },
+  "shiny-apps/rtutor.html": {
+    "title": "RTutor",
+    "tags": ["AI", "data-analysis", "NLP"]
+  },
+  "shiny-apps/gradio-meta-calculator.html": {
+    "title": "Meta-Analysis Calculator",
+    "tags": ["meta-analysis", "gradio"]
+  },
+  "shiny-apps/appsilon-enterprise.html": {
+    "title": "Appsilon Templates Bundle",
+    "tags": ["enterprise", "templates", "fluent-ui"]
+  },
+  "shiny-apps/ai-library-executor.html": {
+    "title": "R Code Executor",
+    "tags": ["code-execution", "remote"]
+  },
+  "quarto/cochrane-meta-report.html": {
+    "title": "Cochrane Meta-Analysis Report",
+    "tags": ["cochrane", "meta-analysis", "template"]
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "generated": "2026-04-01T22:10:05.923Z",
-  "count": 35,
+  "generated": "2026-04-01T22:17:01.010Z",
+  "count": 36,
   "folders": [
     "components",
     "dashboards",
@@ -9,181 +9,439 @@
     "quarto",
     "shiny-apps"
   ],
+  "tags": [
+    "AI",
+    "API",
+    "ELSI",
+    "GLP-1",
+    "NLP",
+    "NMA",
+    "R",
+    "RHC",
+    "TSA",
+    "TriNetX",
+    "brain-metastases",
+    "brainstorm",
+    "breast-cancer",
+    "clinical-trials",
+    "cochrane",
+    "code-execution",
+    "dashboard",
+    "data-analysis",
+    "data-linkage",
+    "data-profile",
+    "dataset",
+    "disparities",
+    "elderly",
+    "enterprise",
+    "equity",
+    "fluent-ui",
+    "gradio",
+    "interactive",
+    "jupyter",
+    "machine-learning",
+    "manuscript",
+    "melanoma",
+    "meta-analysis",
+    "metafor",
+    "network",
+    "neurology",
+    "oncology",
+    "protocol",
+    "quarto",
+    "remote",
+    "reporting",
+    "research",
+    "screening",
+    "shiny",
+    "survival-analysis",
+    "template",
+    "templates"
+  ],
   "artifacts": [
     {
       "filename": "ELSI_linkage_key.csv",
       "path": "onco-ideias/elsi-idosos-onco/ELSI_linkage_key.csv",
       "folder": "onco-ideias",
       "size": 271137,
-      "modified": "2026-04-01T22:09:58.714Z"
+      "modified": "2026-04-01T22:09:58.714Z",
+      "title": "ELSI Linkage Key",
+      "tags": [
+        "oncology",
+        "research",
+        "ELSI",
+        "dataset"
+      ]
     },
     {
       "filename": "ELSI_panel_summary.csv",
       "path": "onco-ideias/elsi-idosos-onco/ELSI_panel_summary.csv",
       "folder": "onco-ideias",
       "size": 298387,
-      "modified": "2026-04-01T22:09:58.711Z"
+      "modified": "2026-04-01T22:09:58.711Z",
+      "title": "ELSI Panel Summary",
+      "tags": [
+        "oncology",
+        "research",
+        "ELSI",
+        "dataset"
+      ]
     },
     {
       "filename": "ELSI_linkage_report.md",
       "path": "onco-ideias/elsi-idosos-onco/ELSI_linkage_report.md",
       "folder": "onco-ideias",
       "size": 3599,
-      "modified": "2026-04-01T22:09:58.708Z"
+      "modified": "2026-04-01T22:09:58.708Z",
+      "title": "ELSI Linkage Report",
+      "tags": [
+        "oncology",
+        "research",
+        "ELSI",
+        "data-linkage"
+      ]
     },
     {
       "filename": "ELSI_Brasil_Wave1_Data_Profile.md",
       "path": "onco-ideias/elsi-idosos-onco/ELSI_Brasil_Wave1_Data_Profile.md",
       "folder": "onco-ideias",
       "size": 7044,
-      "modified": "2026-04-01T22:09:58.704Z"
+      "modified": "2026-04-01T22:09:58.704Z",
+      "title": "ELSI Brasil Wave 1 Profile",
+      "tags": [
+        "oncology",
+        "research",
+        "ELSI",
+        "data-profile",
+        "elderly"
+      ]
     },
     {
       "filename": "ELSI_dashboard.html",
       "path": "onco-ideias/elsi-idosos-onco/ELSI_dashboard.html",
       "folder": "onco-ideias",
       "size": 25984,
-      "modified": "2026-04-01T22:09:58.702Z"
+      "modified": "2026-04-01T22:09:58.702Z",
+      "title": "ELSI Elderly+Onco Dashboard",
+      "tags": [
+        "oncology",
+        "research",
+        "ELSI",
+        "elderly",
+        "dashboard"
+      ]
     },
     {
       "filename": "glp1-breast-cancer.docx",
       "path": "onco-ideias/glp1-breast-cancer/glp1-breast-cancer.docx",
       "folder": "onco-ideias",
       "size": 10446,
-      "modified": "2026-04-01T22:09:58.700Z"
+      "modified": "2026-04-01T22:09:58.700Z",
+      "title": "GLP-1 + Breast Cancer",
+      "tags": [
+        "oncology",
+        "research",
+        "GLP-1",
+        "breast-cancer",
+        "TriNetX"
+      ]
     },
     {
       "filename": "study-protocol.docx",
       "path": "onco-ideias/glp1-breast-cancer/study-protocol.docx",
       "folder": "onco-ideias",
       "size": 37902,
-      "modified": "2026-04-01T22:09:58.698Z"
+      "modified": "2026-04-01T22:09:58.698Z",
+      "title": "GLP-1 + Breast Cancer Protocol",
+      "tags": [
+        "oncology",
+        "research",
+        "GLP-1",
+        "breast-cancer",
+        "protocol",
+        "TriNetX"
+      ]
     },
     {
       "filename": "gemini-export.docx",
       "path": "onco-ideias/onco-penalty/gemini-export.docx",
       "folder": "onco-ideias",
       "size": 6611,
-      "modified": "2026-04-01T22:09:58.696Z"
+      "modified": "2026-04-01T22:09:58.696Z",
+      "tags": [
+        "oncology",
+        "research"
+      ]
+    },
+    {
+      "filename": "analysis-code.ipynb",
+      "path": "onco-ideias/onco-penalty/analysis-code.ipynb",
+      "folder": "onco-ideias",
+      "size": 13653,
+      "modified": "2026-04-01T22:09:58.694Z",
+      "title": "Onco-Penalty Analysis Code",
+      "tags": [
+        "oncology",
+        "research",
+        "machine-learning",
+        "jupyter",
+        "breast-cancer"
+      ]
     },
     {
       "filename": "notes-concepts.docx",
       "path": "onco-ideias/onco-penalty/notes-concepts.docx",
       "folder": "onco-ideias",
       "size": 279608,
-      "modified": "2026-04-01T22:09:58.691Z"
+      "modified": "2026-04-01T22:09:58.691Z",
+      "title": "Onco-Penalty Notes & Concepts",
+      "tags": [
+        "oncology",
+        "research",
+        "breast-cancer",
+        "brainstorm"
+      ]
     },
     {
       "filename": "oncologic-penalty-manuscript.docx",
       "path": "onco-ideias/onco-penalty/oncologic-penalty-manuscript.docx",
       "folder": "onco-ideias",
       "size": 16708,
-      "modified": "2026-04-01T22:09:58.678Z"
+      "modified": "2026-04-01T22:09:58.678Z",
+      "title": "Oncologic Penalty - ML Screening Triage",
+      "tags": [
+        "oncology",
+        "research",
+        "machine-learning",
+        "breast-cancer",
+        "screening",
+        "manuscript"
+      ]
     },
     {
       "filename": "overview.pdf",
       "path": "onco-ideias/onco-penalty/overview.pdf",
       "folder": "onco-ideias",
       "size": 108964,
-      "modified": "2026-04-01T22:09:58.676Z"
+      "modified": "2026-04-01T22:09:58.676Z",
+      "title": "Onco-Penalty Overview",
+      "tags": [
+        "oncology",
+        "research",
+        "breast-cancer",
+        "screening"
+      ]
     },
     {
       "filename": "melanoma-brain-metastases.docx",
       "path": "onco-ideias/meta-analysis/melanoma-brain-metastases.docx",
       "folder": "onco-ideias",
       "size": 7890,
-      "modified": "2026-04-01T22:09:58.674Z"
+      "modified": "2026-04-01T22:09:58.674Z",
+      "title": "Melanoma with Brain Metastases - Meta-Analysis",
+      "tags": [
+        "oncology",
+        "research",
+        "melanoma",
+        "brain-metastases",
+        "meta-analysis"
+      ]
     },
     {
       "filename": "neuro-onco.docx",
       "path": "onco-ideias/neuro-breast/neuro-onco.docx",
       "folder": "onco-ideias",
       "size": 566745,
-      "modified": "2026-04-01T22:09:58.672Z"
+      "modified": "2026-04-01T22:09:58.672Z",
+      "title": "Neuro + Oncology",
+      "tags": [
+        "oncology",
+        "research",
+        "neurology",
+        "breast-cancer"
+      ]
     },
     {
       "filename": "link-dashboard.docx",
       "path": "onco-ideias/rhc-2014-2016/link-dashboard.docx",
       "folder": "onco-ideias",
       "size": 6534,
-      "modified": "2026-04-01T22:09:58.669Z"
+      "modified": "2026-04-01T22:09:58.669Z",
+      "tags": [
+        "oncology",
+        "research"
+      ]
     },
     {
       "filename": "rhc14_data_profile.md",
       "path": "onco-ideias/rhc-2014-2016/rhc14_data_profile.md",
       "folder": "onco-ideias",
       "size": 12272,
-      "modified": "2026-04-01T22:09:58.666Z"
+      "modified": "2026-04-01T22:09:58.666Z",
+      "title": "RHC Data Profile",
+      "tags": [
+        "oncology",
+        "research",
+        "data-profile",
+        "RHC"
+      ]
     },
     {
       "filename": "rhc14_equity_analysis.html",
       "path": "onco-ideias/rhc-2014-2016/rhc14_equity_analysis.html",
       "folder": "onco-ideias",
       "size": 16546,
-      "modified": "2026-04-01T22:09:58.665Z"
+      "modified": "2026-04-01T22:09:58.665Z",
+      "title": "RHC Equity Analysis",
+      "tags": [
+        "oncology",
+        "research",
+        "equity",
+        "disparities",
+        "RHC",
+        "dashboard"
+      ]
     },
     {
       "filename": "rhc14_survival_dashboard.html",
       "path": "onco-ideias/rhc-2014-2016/rhc14_survival_dashboard.html",
       "folder": "onco-ideias",
       "size": 1282463,
-      "modified": "2026-04-01T22:09:58.662Z"
+      "modified": "2026-04-01T22:09:58.662Z",
+      "title": "RHC Survival Dashboard",
+      "tags": [
+        "oncology",
+        "research",
+        "survival-analysis",
+        "RHC",
+        "dashboard"
+      ]
     },
     {
       "filename": "cochrane-meta-report.html",
       "path": "quarto/cochrane-meta-report.html",
       "folder": "quarto",
       "size": 3826,
-      "modified": "2026-04-01T21:55:47.490Z"
+      "modified": "2026-04-01T21:55:47.490Z",
+      "title": "Cochrane Meta-Analysis Report",
+      "tags": [
+        "quarto",
+        "R",
+        "reporting",
+        "cochrane",
+        "meta-analysis",
+        "template"
+      ]
     },
     {
       "filename": "appsilon-enterprise.html",
       "path": "shiny-apps/appsilon-enterprise.html",
       "folder": "shiny-apps",
       "size": 3249,
-      "modified": "2026-04-01T21:55:31.150Z"
+      "modified": "2026-04-01T21:55:31.150Z",
+      "title": "Appsilon Templates Bundle",
+      "tags": [
+        "shiny",
+        "R",
+        "interactive",
+        "enterprise",
+        "templates",
+        "fluent-ui"
+      ]
     },
     {
       "filename": "rtutor.html",
       "path": "shiny-apps/rtutor.html",
       "folder": "shiny-apps",
       "size": 2460,
-      "modified": "2026-04-01T21:55:17.742Z"
+      "modified": "2026-04-01T21:55:17.742Z",
+      "title": "RTutor",
+      "tags": [
+        "shiny",
+        "R",
+        "interactive",
+        "AI",
+        "data-analysis",
+        "NLP"
+      ]
     },
     {
       "filename": "meta-analysis-api.html",
       "path": "shiny-apps/meta-analysis-api.html",
       "folder": "shiny-apps",
       "size": 3017,
-      "modified": "2026-04-01T21:55:09.222Z"
+      "modified": "2026-04-01T21:55:09.222Z",
+      "title": "Meta-Analysis API",
+      "tags": [
+        "shiny",
+        "R",
+        "interactive",
+        "API",
+        "meta-analysis",
+        "metafor"
+      ]
     },
     {
       "filename": "gradio-meta-calculator.html",
       "path": "shiny-apps/gradio-meta-calculator.html",
       "folder": "shiny-apps",
       "size": 2629,
-      "modified": "2026-04-01T21:54:58.480Z"
+      "modified": "2026-04-01T21:54:58.480Z",
+      "title": "Meta-Analysis Calculator",
+      "tags": [
+        "shiny",
+        "R",
+        "interactive",
+        "meta-analysis",
+        "gradio"
+      ]
     },
     {
       "filename": "ai-library-executor.html",
       "path": "shiny-apps/ai-library-executor.html",
       "folder": "shiny-apps",
       "size": 2378,
-      "modified": "2026-04-01T21:54:47.193Z"
+      "modified": "2026-04-01T21:54:47.193Z",
+      "title": "R Code Executor",
+      "tags": [
+        "shiny",
+        "R",
+        "interactive",
+        "code-execution",
+        "remote"
+      ]
     },
     {
       "filename": "tsa-observatory.html",
       "path": "shiny-apps/tsa-observatory.html",
       "folder": "shiny-apps",
       "size": 2901,
-      "modified": "2026-04-01T21:54:37.746Z"
+      "modified": "2026-04-01T21:54:37.746Z",
+      "title": "TSA Observatory",
+      "tags": [
+        "shiny",
+        "R",
+        "interactive",
+        "TSA",
+        "clinical-trials",
+        "AI"
+      ]
     },
     {
       "filename": "metainsight.html",
       "path": "shiny-apps/metainsight.html",
       "folder": "shiny-apps",
       "size": 2829,
-      "modified": "2026-04-01T21:54:25.985Z"
+      "modified": "2026-04-01T21:54:25.985Z",
+      "title": "MetaInsight",
+      "tags": [
+        "shiny",
+        "R",
+        "interactive",
+        "NMA",
+        "meta-analysis",
+        "network"
+      ]
     },
     {
       "filename": "project-ideas.txt",
@@ -218,14 +476,22 @@
       "path": "dashboards/metrics-panel.html",
       "folder": "dashboards",
       "size": 1497,
-      "modified": "2026-04-01T21:53:55.366Z"
+      "modified": "2026-04-01T21:53:55.366Z",
+      "tags": [
+        "dashboard",
+        "interactive"
+      ]
     },
     {
       "filename": "chart-demo.html",
       "path": "dashboards/chart-demo.html",
       "folder": "dashboards",
       "size": 2035,
-      "modified": "2026-04-01T21:53:53.909Z"
+      "modified": "2026-04-01T21:53:53.909Z",
+      "tags": [
+        "dashboard",
+        "interactive"
+      ]
     },
     {
       "filename": "color-palette.jsx",
