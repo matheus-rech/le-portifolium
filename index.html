@@ -694,6 +694,11 @@
 
       var openLabel = type === 'shiny' ? 'View' : 'Open';
       var openUrl = (type === 'shiny' || type === 'quarto') ? 'artifacts/' + filePath : url;
+      var binaryTypes = ['docx', 'pdf', 'notebook'];
+      var isBinary = binaryTypes.indexOf(rawType) !== -1;
+      var sourceBtn = isBinary
+        ? '<a href="artifacts/' + filePath + '" download class="btn-source">Download</a>'
+        : '<a href="artifacts/' + filePath + '" target="_blank" class="btn-source">Source</a>';
 
       return '<div class="card" data-type="' + type + '" data-folder="' + (item.folder || '') + '" data-name="' + title.toLowerCase() + '" style="animation-delay: ' + delay + 's">'
         + '<div class="card-preview">' + previewHTML + '</div>'
@@ -708,7 +713,7 @@
         + '</div>'
         + '<div class="card-actions">'
         + '<a href="' + openUrl + '" target="_blank" class="btn-open">' + openLabel + '</a>'
-        + '<a href="artifacts/' + filePath + '" target="_blank" class="btn-source">Source</a>'
+        + sourceBtn
         + '</div>'
         + '</div>';
     }
