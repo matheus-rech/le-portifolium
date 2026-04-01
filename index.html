@@ -439,6 +439,7 @@
     .card-tag[data-type="docx"]   { background: rgba(74,134,200,0.12); color: var(--tag-docx); }
     .card-tag[data-type="shiny"]  { background: rgba(54,151,211,0.12); color: var(--tag-shiny); }
     .card-tag[data-type="quarto"] { background: rgba(69,147,209,0.12); color: var(--tag-quarto); }
+    .card-tag[data-type="notebook"]{ background: rgba(232,164,78,0.12); color: var(--tag-svg); }
     .card-tag[data-type="r"]      { background: rgba(39,104,187,0.12); color: var(--tag-r); }
     .card-tag[data-type="other"]  { background: rgba(139,137,148,0.12); color: var(--tag-other); }
 
@@ -583,9 +584,13 @@
   <script>
     const MANIFEST_URL = 'manifest.json';
     const VIEWERS = {
-      jsx: 'viewers/jsx-viewer.html',
-      md:  'viewers/md-viewer.html',
-      text: 'viewers/text-viewer.html',
+      jsx:      'viewers/jsx-viewer.html',
+      md:       'viewers/md-viewer.html',
+      text:     'viewers/text-viewer.html',
+      docx:     'viewers/docx-viewer.html',
+      csv:      'viewers/csv-viewer.html',
+      pdf:      'viewers/pdf-viewer.html',
+      notebook: 'viewers/notebook-viewer.html',
     };
 
     function getFileType(filename) {
@@ -598,6 +603,7 @@
       if (ext === 'css') return 'css';
       if (ext === 'svg') return 'svg';
       if (ext === 'docx') return 'docx';
+      if (ext === 'ipynb') return 'notebook';
       if (['r'].includes(ext)) return 'r';
       if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'ico'].includes(ext)) return 'image';
       if (['txt', 'log', 'rtf'].includes(ext)) return 'text';
@@ -622,6 +628,7 @@
       css:    '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 3h16l-1.5 15L12 21l-6.5-3z"/><path d="M8 8h8l-.5 5H9"/></svg>',
       shiny:  '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>',
       quarto: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><path d="M8 13l2 2 4-4"/></svg>',
+      notebook:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/><line x1="2" y1="6" x2="4" y2="6"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="2" y1="14" x2="4" y2="14"/></svg>',
       r:      '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 16V8h4a3 3 0 0 1 0 6h-4M12 14l4 2"/></svg>',
       other:  '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>',
     };
@@ -637,13 +644,20 @@
     function getArtifactUrl(item) {
       const type = getFileType(item.filename);
       const filePath = item.path || item.filename;
-      if (type === 'html')  return 'artifacts/' + filePath;
-      if (type === 'jsx')   return VIEWERS.jsx + '?file=../artifacts/' + filePath;
-      if (type === 'md')    return VIEWERS.md + '?file=../artifacts/' + filePath;
-      if (type === 'svg')   return 'artifacts/' + filePath;
-      if (type === 'image') return 'artifacts/' + filePath;
-      if (type === 'pdf')   return 'artifacts/' + filePath;
-      if (type === 'text' || type === 'code' || type === 'data' || type === 'r' || type === 'quarto')
+      if (type === 'html')     return 'artifacts/' + filePath;
+      if (type === 'jsx')      return VIEWERS.jsx + '?file=../artifacts/' + filePath;
+      if (type === 'md')       return VIEWERS.md + '?file=../artifacts/' + filePath;
+      if (type === 'docx')     return VIEWERS.docx + '?file=../artifacts/' + filePath;
+      if (type === 'pdf')      return VIEWERS.pdf + '?file=../artifacts/' + filePath;
+      if (type === 'notebook') return VIEWERS.notebook + '?file=../artifacts/' + filePath;
+      if (type === 'svg')      return 'artifacts/' + filePath;
+      if (type === 'image')    return 'artifacts/' + filePath;
+      if (type === 'data') {
+        var ext = item.filename.split('.').pop().toLowerCase();
+        if (ext === 'csv') return VIEWERS.csv + '?file=../artifacts/' + filePath;
+        return VIEWERS.text + '?file=../artifacts/' + filePath;
+      }
+      if (type === 'text' || type === 'code' || type === 'r' || type === 'quarto')
         return VIEWERS.text + '?file=../artifacts/' + filePath;
       return 'artifacts/' + filePath;
     }
@@ -659,7 +673,7 @@
       var previewHTML;
       if (type === 'shiny' || type === 'quarto') {
         previewHTML = '<iframe src="artifacts/' + filePath + '" loading="lazy" sandbox="allow-scripts allow-same-origin" title="' + title + '"></iframe>';
-      } else if (['html', 'jsx', 'md'].includes(rawType)) {
+      } else if (['html', 'jsx', 'md', 'docx', 'notebook', 'pdf'].includes(rawType) || (rawType === 'data' && item.filename.toLowerCase().endsWith('.csv'))) {
         previewHTML = '<iframe src="' + url + '" loading="lazy" sandbox="allow-scripts allow-same-origin" title="' + title + '"></iframe>';
       } else if (rawType === 'image') {
         previewHTML = '<img class="preview-image" src="artifacts/' + filePath + '" alt="' + title + '" loading="lazy" />';

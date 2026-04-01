@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notebook Viewer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: #0c0c0f;
+      color: #e8e6e3;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #16161a;
+      border-bottom: 1px solid #2a2a32;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+    .toolbar .filename { color: #c9a96e; font-weight: 500; }
+    .toolbar .meta { color: #8b8994; }
+    .notebook {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 4rem;
+    }
+    .cell {
+      margin-bottom: 1rem;
+      border: 1px solid #2a2a32;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .cell-header {
+      background: #16161a;
+      padding: 0.35rem 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #8b8994;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid #2a2a32;
+      display: flex;
+      justify-content: space-between;
+    }
+    .cell-label-code { color: #7ec8e3; }
+    .cell-label-md { color: #8b9fcc; }
+    .cell-label-raw { color: #b8a66e; }
+    .cell-body-code {
+      background: #111114;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      tab-size: 4;
+    }
+    .cell-body-md {
+      padding: 1rem 1.2rem;
+      line-height: 1.7;
+    }
+    .cell-body-md h1, .cell-body-md h2, .cell-body-md h3 { color: #fff; margin-top: 0.5rem; }
+    .cell-body-md h1 { font-size: 1.5rem; }
+    .cell-body-md h2 { font-size: 1.2rem; }
+    .cell-body-md code { font-family: 'JetBrains Mono', monospace; background: #16161a; padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.85em; }
+    .cell-body-md pre { background: #111114; padding: 0.8rem; border-radius: 6px; overflow-x: auto; }
+    .cell-body-md pre code { background: none; padding: 0; }
+    .cell-body-md a { color: #3697d3; }
+    .cell-body-md table { border-collapse: collapse; width: 100%; margin: 0.5rem 0; }
+    .cell-body-md th, .cell-body-md td { border: 1px solid #2a2a32; padding: 0.4rem 0.6rem; font-size: 0.85rem; }
+    .cell-body-md th { background: #16161a; }
+    .cell-output {
+      background: #0e0e12;
+      border-top: 1px solid #2a2a32;
+      padding: 0.8rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      color: #a0a0a8;
+      overflow-x: auto;
+    }
+    .cell-output img { max-width: 100%; border-radius: 4px; margin: 0.5rem 0; }
+    .exec-count { color: #c9a96e; }
+    .loading { text-align: center; padding: 4rem; color: #8b8994; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <span class="filename" id="filename">Loading...</span>
+    <span class="meta" id="meta"></span>
+  </div>
+  <div class="notebook" id="notebook"><div class="loading">Parsing notebook...</div></div>
+  <script>
+    function esc(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function renderOutputEl(output) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'cell-output';
+
+      if (output.output_type === 'stream') {
+        wrapper.textContent = (output.text || []).join('');
+      } else if (output.output_type === 'execute_result' || output.output_type === 'display_data') {
+        var data = output.data || {};
+        if (data['image/png']) {
+          var img = document.createElement('img');
+          img.src = 'data:image/png;base64,' + data['image/png'];
+          wrapper.appendChild(img);
+        } else if (data['text/plain']) {
+          var text = Array.isArray(data['text/plain']) ? data['text/plain'].join('') : data['text/plain'];
+          wrapper.textContent = text;
+        }
+      } else if (output.output_type === 'error') {
+        var tb = (output.traceback || []).join('\n').replace(/\x1b\[[0-9;]*m/g, '');
+        wrapper.textContent = tb;
+        wrapper.style.color = '#e06c5a';
+      }
+      return wrapper;
+    }
+
+    (async function() {
+      var params = new URLSearchParams(window.location.search);
+      var file = params.get('file');
+      if (!file) {
+        document.getElementById('notebook').textContent = 'No file specified.';
+        return;
+      }
+      var filename = file.split('/').pop();
+      document.getElementById('filename').textContent = filename;
+      document.title = filename.replace(/\.[^.]+$/, '');
+
+      try {
+        var res = await fetch(file);
+        if (!res.ok) throw new Error('Failed to load: ' + res.status);
+        var nb = await res.json();
+        var cells = nb.cells || [];
+        var kernel = (nb.metadata && nb.metadata.kernelspec) ? nb.metadata.kernelspec.display_name : 'Unknown';
+        document.getElementById('meta').textContent = cells.length + ' cells | ' + kernel;
+
+        var container = document.getElementById('notebook');
+        container.textContent = '';
+
+        cells.forEach(function(cell, i) {
+          var source = Array.isArray(cell.source) ? cell.source.join('') : (cell.source || '');
+          var cellType = cell.cell_type || 'code';
+
+          var cellDiv = document.createElement('div');
+          cellDiv.className = 'cell';
+
+          // Header
+          var header = document.createElement('div');
+          header.className = 'cell-header';
+          var labelSpan = document.createElement('span');
+          labelSpan.className = 'cell-label-' + (cellType === 'markdown' ? 'md' : cellType === 'raw' ? 'raw' : 'code');
+          labelSpan.textContent = cellType;
+          if (cell.execution_count) {
+            var execSpan = document.createElement('span');
+            execSpan.className = 'exec-count';
+            execSpan.textContent = ' [' + cell.execution_count + ']';
+            labelSpan.appendChild(execSpan);
+          }
+          var numSpan = document.createElement('span');
+          numSpan.textContent = i + 1;
+          header.appendChild(labelSpan);
+          header.appendChild(numSpan);
+          cellDiv.appendChild(header);
+
+          // Body
+          if (cellType === 'markdown') {
+            var mdDiv = document.createElement('div');
+            mdDiv.className = 'cell-body-md';
+            mdDiv.innerHTML = marked.parse(source);
+            cellDiv.appendChild(mdDiv);
+          } else {
+            var codeDiv = document.createElement('div');
+            codeDiv.className = 'cell-body-code';
+            codeDiv.textContent = source;
+            cellDiv.appendChild(codeDiv);
+
+            (cell.outputs || []).forEach(function(out) {
+              cellDiv.appendChild(renderOutputEl(out));
+            });
+          }
+
+          container.appendChild(cellDiv);
+        });
+      } catch (err) {
+        document.getElementById('notebook').textContent = 'Error: ' + err.message;
+      }
+    })();
+  </script>
+</body>
+</html>

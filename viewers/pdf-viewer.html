@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Viewer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0c0c0f;
+      color: #e8e6e3;
+      font-family: system-ui, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .toolbar {
+      background: #16161a;
+      border-bottom: 1px solid #2a2a32;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      flex-shrink: 0;
+    }
+    .toolbar .filename { color: #c9a96e; font-weight: 500; }
+    .toolbar a { color: #3697d3; text-decoration: none; font-size: 0.75rem; }
+    .pdf-frame { flex: 1; width: 100%; border: none; }
+    .fallback {
+      display: none;
+      padding: 3rem;
+      text-align: center;
+    }
+    .fallback p { color: #8b8994; margin-bottom: 1rem; }
+    .fallback a { color: #c9a96e; text-decoration: none; font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <span class="filename" id="filename">Loading...</span>
+    <a href="#" id="download-link" target="_blank">Download PDF</a>
+  </div>
+  <div class="fallback" id="fallback">
+    <p>PDF cannot be displayed inline.</p>
+    <a href="#" id="fallback-link" target="_blank">Open PDF in new tab</a>
+  </div>
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var file = params.get('file');
+    if (!file) {
+      document.body.textContent = 'No file specified.';
+    } else {
+      var filename = file.split('/').pop();
+      document.getElementById('filename').textContent = filename;
+      document.title = filename;
+      document.getElementById('download-link').href = file;
+      document.getElementById('fallback-link').href = file;
+      var iframe = document.createElement('iframe');
+      iframe.className = 'pdf-frame';
+      iframe.src = file;
+      iframe.onerror = function() {
+        iframe.remove();
+        document.getElementById('fallback').style.display = 'block';
+      };
+      document.body.appendChild(iframe);
+    }
+  </script>
+</body>
+</html>

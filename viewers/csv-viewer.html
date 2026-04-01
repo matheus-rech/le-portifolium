@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSV Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: #0c0c0f;
+      color: #e8e6e3;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #16161a;
+      border-bottom: 1px solid #2a2a32;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+    .toolbar .filename { color: #c9a96e; font-weight: 500; }
+    .toolbar .meta { color: #8b8994; }
+    .table-wrap { padding: 1rem; overflow-x: auto; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.82rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    th {
+      position: sticky;
+      top: 42px;
+      background: #1e1e24;
+      color: #c9a96e;
+      font-weight: 600;
+      text-align: left;
+      padding: 0.55rem 0.7rem;
+      border-bottom: 2px solid #3a3a44;
+      white-space: nowrap;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    td {
+      padding: 0.45rem 0.7rem;
+      border-bottom: 1px solid #1e1e24;
+      white-space: nowrap;
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    tr:hover td { background: rgba(201,169,110,0.04); }
+    .row-num { color: #3a3a44; text-align: right; padding-right: 1rem; user-select: none; width: 40px; }
+    .loading { text-align: center; padding: 4rem; color: #8b8994; }
+    .error { color: #e06c5a; padding: 2rem; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <span class="filename" id="filename">Loading...</span>
+    <span class="meta" id="meta"></span>
+  </div>
+  <div class="table-wrap" id="content"><div class="loading">Loading data...</div></div>
+  <script>
+    function parseCSV(text) {
+      var lines = text.split('\n').filter(function(l) { return l.trim(); });
+      var result = [];
+      for (var i = 0; i < lines.length; i++) {
+        var row = [];
+        var inQuote = false;
+        var field = '';
+        for (var j = 0; j < lines[i].length; j++) {
+          var c = lines[i][j];
+          if (c === '"') {
+            if (inQuote && lines[i][j+1] === '"') { field += '"'; j++; }
+            else { inQuote = !inQuote; }
+          } else if (c === ',' && !inQuote) {
+            row.push(field.trim());
+            field = '';
+          } else {
+            field += c;
+          }
+        }
+        row.push(field.trim());
+        result.push(row);
+      }
+      return result;
+    }
+
+    function esc(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    (async function() {
+      var params = new URLSearchParams(window.location.search);
+      var file = params.get('file');
+      if (!file) {
+        document.getElementById('content').textContent = 'No file specified.';
+        return;
+      }
+      var filename = file.split('/').pop();
+      document.getElementById('filename').textContent = filename;
+      document.title = filename;
+      try {
+        var res = await fetch(file);
+        if (!res.ok) throw new Error('Failed to load: ' + res.status);
+        var text = await res.text();
+        var rows = parseCSV(text);
+        if (rows.length === 0) {
+          document.getElementById('content').textContent = 'Empty CSV file.';
+          return;
+        }
+        var headers = rows[0];
+        var dataRows = rows.slice(1);
+        document.getElementById('meta').textContent = dataRows.length + ' rows, ' + headers.length + ' columns';
+
+        var table = document.createElement('table');
+        var thead = document.createElement('thead');
+        var headRow = document.createElement('tr');
+        var numTh = document.createElement('th');
+        numTh.className = 'row-num';
+        numTh.textContent = '#';
+        headRow.appendChild(numTh);
+        headers.forEach(function(h) {
+          var th = document.createElement('th');
+          th.textContent = h;
+          headRow.appendChild(th);
+        });
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        var tbody = document.createElement('tbody');
+        dataRows.forEach(function(row, i) {
+          var tr = document.createElement('tr');
+          var numTd = document.createElement('td');
+          numTd.className = 'row-num';
+          numTd.textContent = i + 1;
+          tr.appendChild(numTd);
+          headers.forEach(function(_, ci) {
+            var td = document.createElement('td');
+            td.textContent = row[ci] !== undefined ? row[ci] : '';
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+
+        var content = document.getElementById('content');
+        content.textContent = '';
+        content.appendChild(table);
+      } catch (err) {
+        document.getElementById('content').textContent = 'Error: ' + err.message;
+      }
+    })();
+  </script>
+</body>
+</html>

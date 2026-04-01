@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document Viewer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: #0c0c0f;
+      color: #e8e6e3;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #16161a;
+      border-bottom: 1px solid #2a2a32;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+    .toolbar .filename { color: #c9a96e; font-weight: 500; }
+    .toolbar .meta { color: #8b8994; }
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem 4rem;
+      line-height: 1.7;
+    }
+    .content h1, .content h2, .content h3, .content h4 {
+      color: #fff;
+      margin-top: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .content h1 { font-size: 1.8rem; border-bottom: 1px solid #2a2a32; padding-bottom: 0.5rem; }
+    .content h2 { font-size: 1.4rem; }
+    .content p { margin: 0.8rem 0; }
+    .content table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    .content th, .content td { border: 1px solid #2a2a32; padding: 0.5rem 0.7rem; text-align: left; font-size: 0.9rem; }
+    .content th { background: #16161a; color: #c9a96e; }
+    .content ul, .content ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+    .content li { margin-bottom: 0.3rem; }
+    .content img { max-width: 100%; border-radius: 8px; margin: 1rem 0; }
+    .content a { color: #3697d3; }
+    .content strong { color: #fff; }
+    .loading { text-align: center; padding: 4rem; color: #8b8994; font-size: 1rem; }
+    .error { color: #e06c5a; padding: 2rem; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <span class="filename" id="filename">Loading...</span>
+    <span class="meta" id="meta"></span>
+  </div>
+  <div class="content" id="content"><div class="loading">Rendering document...</div></div>
+  <script>
+    (async function() {
+      var params = new URLSearchParams(window.location.search);
+      var file = params.get('file');
+      if (!file) {
+        document.getElementById('content').textContent = 'No file specified.';
+        return;
+      }
+      var filename = file.split('/').pop();
+      document.getElementById('filename').textContent = filename;
+      document.title = filename.replace(/\.[^.]+$/, '');
+      try {
+        var res = await fetch(file);
+        if (!res.ok) throw new Error('Failed to load: ' + res.status);
+        var arrayBuffer = await res.arrayBuffer();
+        var result = await mammoth.convertToHtml({ arrayBuffer: arrayBuffer });
+        document.getElementById('content').innerHTML = result.value;
+        if (result.messages.length > 0) {
+          document.getElementById('meta').textContent = result.messages.length + ' warning(s)';
+        }
+      } catch (err) {
+        document.getElementById('content').textContent = 'Error: ' + err.message;
+      }
+    })();
+  </script>
+</body>
+</html>
