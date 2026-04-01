@@ -1,14 +1,134 @@
 {
-  "generated": "2026-04-01T22:00:30.839Z",
-  "count": 18,
+  "generated": "2026-04-01T22:10:05.923Z",
+  "count": 35,
   "folders": [
     "components",
     "dashboards",
     "notes",
+    "onco-ideias",
     "quarto",
     "shiny-apps"
   ],
   "artifacts": [
+    {
+      "filename": "ELSI_linkage_key.csv",
+      "path": "onco-ideias/elsi-idosos-onco/ELSI_linkage_key.csv",
+      "folder": "onco-ideias",
+      "size": 271137,
+      "modified": "2026-04-01T22:09:58.714Z"
+    },
+    {
+      "filename": "ELSI_panel_summary.csv",
+      "path": "onco-ideias/elsi-idosos-onco/ELSI_panel_summary.csv",
+      "folder": "onco-ideias",
+      "size": 298387,
+      "modified": "2026-04-01T22:09:58.711Z"
+    },
+    {
+      "filename": "ELSI_linkage_report.md",
+      "path": "onco-ideias/elsi-idosos-onco/ELSI_linkage_report.md",
+      "folder": "onco-ideias",
+      "size": 3599,
+      "modified": "2026-04-01T22:09:58.708Z"
+    },
+    {
+      "filename": "ELSI_Brasil_Wave1_Data_Profile.md",
+      "path": "onco-ideias/elsi-idosos-onco/ELSI_Brasil_Wave1_Data_Profile.md",
+      "folder": "onco-ideias",
+      "size": 7044,
+      "modified": "2026-04-01T22:09:58.704Z"
+    },
+    {
+      "filename": "ELSI_dashboard.html",
+      "path": "onco-ideias/elsi-idosos-onco/ELSI_dashboard.html",
+      "folder": "onco-ideias",
+      "size": 25984,
+      "modified": "2026-04-01T22:09:58.702Z"
+    },
+    {
+      "filename": "glp1-breast-cancer.docx",
+      "path": "onco-ideias/glp1-breast-cancer/glp1-breast-cancer.docx",
+      "folder": "onco-ideias",
+      "size": 10446,
+      "modified": "2026-04-01T22:09:58.700Z"
+    },
+    {
+      "filename": "study-protocol.docx",
+      "path": "onco-ideias/glp1-breast-cancer/study-protocol.docx",
+      "folder": "onco-ideias",
+      "size": 37902,
+      "modified": "2026-04-01T22:09:58.698Z"
+    },
+    {
+      "filename": "gemini-export.docx",
+      "path": "onco-ideias/onco-penalty/gemini-export.docx",
+      "folder": "onco-ideias",
+      "size": 6611,
+      "modified": "2026-04-01T22:09:58.696Z"
+    },
+    {
+      "filename": "notes-concepts.docx",
+      "path": "onco-ideias/onco-penalty/notes-concepts.docx",
+      "folder": "onco-ideias",
+      "size": 279608,
+      "modified": "2026-04-01T22:09:58.691Z"
+    },
+    {
+      "filename": "oncologic-penalty-manuscript.docx",
+      "path": "onco-ideias/onco-penalty/oncologic-penalty-manuscript.docx",
+      "folder": "onco-ideias",
+      "size": 16708,
+      "modified": "2026-04-01T22:09:58.678Z"
+    },
+    {
+      "filename": "overview.pdf",
+      "path": "onco-ideias/onco-penalty/overview.pdf",
+      "folder": "onco-ideias",
+      "size": 108964,
+      "modified": "2026-04-01T22:09:58.676Z"
+    },
+    {
+      "filename": "melanoma-brain-metastases.docx",
+      "path": "onco-ideias/meta-analysis/melanoma-brain-metastases.docx",
+      "folder": "onco-ideias",
+      "size": 7890,
+      "modified": "2026-04-01T22:09:58.674Z"
+    },
+    {
+      "filename": "neuro-onco.docx",
+      "path": "onco-ideias/neuro-breast/neuro-onco.docx",
+      "folder": "onco-ideias",
+      "size": 566745,
+      "modified": "2026-04-01T22:09:58.672Z"
+    },
+    {
+      "filename": "link-dashboard.docx",
+      "path": "onco-ideias/rhc-2014-2016/link-dashboard.docx",
+      "folder": "onco-ideias",
+      "size": 6534,
+      "modified": "2026-04-01T22:09:58.669Z"
+    },
+    {
+      "filename": "rhc14_data_profile.md",
+      "path": "onco-ideias/rhc-2014-2016/rhc14_data_profile.md",
+      "folder": "onco-ideias",
+      "size": 12272,
+      "modified": "2026-04-01T22:09:58.666Z"
+    },
+    {
+      "filename": "rhc14_equity_analysis.html",
+      "path": "onco-ideias/rhc-2014-2016/rhc14_equity_analysis.html",
+      "folder": "onco-ideias",
+      "size": 16546,
+      "modified": "2026-04-01T22:09:58.665Z"
+    },
+    {
+      "filename": "rhc14_survival_dashboard.html",
+      "path": "onco-ideias/rhc-2014-2016/rhc14_survival_dashboard.html",
+      "folder": "onco-ideias",
+      "size": 1282463,
+      "modified": "2026-04-01T22:09:58.662Z"
+    },
     {
       "filename": "cochrane-meta-report.html",
       "path": "quarto/cochrane-meta-report.html",

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RHC 2014 -- Late-Stage Cancer Equity Analysis</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #333; }
+  .header { background: linear-gradient(135deg, #4a1942 0%, #6b2fa0 50%, #2d1b69 100%); color: white; padding: 30px 40px; }
+  .header h1 { font-size: 26px; margin-bottom: 8px; }
+  .header p { font-size: 14px; opacity: 0.85; line-height: 1.5; }
+  .section { padding: 20px 40px; }
+  .section h2 { font-size: 20px; color: #4a1942; margin-bottom: 12px; border-bottom: 2px solid #6b2fa0; padding-bottom: 6px; }
+  .stats-row { display: flex; gap: 16px; padding: 20px 40px; flex-wrap: wrap; }
+  .stat-card { background: white; border-radius: 10px; padding: 18px 24px; flex: 1; min-width: 180px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #6b2fa0; }
+  .stat-card .label { font-size: 12px; text-transform: uppercase; color: #888; letter-spacing: 0.5px; }
+  .stat-card .value { font-size: 26px; font-weight: 700; color: #4a1942; margin-top: 4px; }
+  .stat-card .detail { font-size: 12px; color: #666; margin-top: 2px; }
+  .chart-box { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+  th { background: #4a1942; color: white; padding: 12px 16px; text-align: left; font-size: 13px; }
+  td { padding: 10px 16px; border-bottom: 1px solid #eee; font-size: 13px; }
+  tr:hover td { background: #f8f9fa; }
+  .highlight { background: #fff3cd !important; }
+  .footnote { font-size: 12px; color: #888; padding: 10px 40px 30px; line-height: 1.6; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-high { background: #f8d7da; color: #842029; }
+  .badge-med { background: #fff3cd; color: #664d03; }
+  .badge-low { background: #d1e7dd; color: #0f5132; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Late-Stage Cancer at Diagnosis: Equity Analysis</h1>
+  <p>Analysis of 308,271 staged cancer cases from the Brazilian Hospital Cancer Registry (RHC 2014). Late-stage defined as clinical Stage III or IV at diagnosis. All odds ratios adjusted for age, sex, and cancer site.</p>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="label">Staged Cases</div>
+    <div class="value">308,271</div>
+    <div class="detail">46.8% of valid records</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Late-Stage Rate</div>
+    <div class="value">49.2%</div>
+    <div class="detail">Stage III + IV combined</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Largest Disparity</div>
+    <div class="value">13 pp</div>
+    <div class="detail">Illiterate vs Sup. completo</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Geographic Gap</div>
+    <div class="value">22 pp</div>
+    <div class="detail">Tocantins vs Sao Paulo</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Adjusted OR: Black vs White</div>
+    <div class="value">1.19</div>
+    <div class="detail">p < 0.001</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Late-Stage Rates by Social Determinants</h2>
+  <div class="grid-2">
+    <div class="chart-box"><div id="chart_race"></div></div>
+    <div class="chart-box"><div id="chart_edu"></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="chart-box"><div id="chart_region"></div></div>
+    <div class="chart-box"><div id="chart_state"></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Adjusted Odds Ratios -- Multivariable Logistic Regression</h2>
+  <p style="margin-bottom:12px; color:#666; font-size:13px;">Adjusted for age, sex, and cancer site. Reference categories: White, Superior completo, Southeast.</p>
+  <div class="chart-box"><div id="chart_forest"></div></div>
+</div>
+
+<div class="section">
+  <h2>Intersectional Analysis: Race x Education</h2>
+  <div class="chart-box"><div id="chart_heatmap"></div></div>
+</div>
+
+<div class="section">
+  <h2>Adjusted Odds Ratios Table</h2>
+  <table>
+    <tr><th>Variable</th><th>Adjusted OR</th><th>95% CI</th><th>Disparity Level</th></tr>
+    <tr><td>Age (per SD)</td><td><strong>1.04</strong></td><td>1.03 -- 1.06</td><td><span class="badge" style="background:#e8e8e8;">None</span></td></tr>
+    <tr><td>Male sex</td><td><strong>1.19</strong></td><td>1.15 -- 1.23</td><td><span class="badge badge-med">Moderate</span></td></tr>
+    <tr><td>Black (vs White)</td><td><strong>1.19</strong></td><td>1.14 -- 1.24</td><td><span class="badge badge-med">Moderate</span></td></tr>
+    <tr><td>Pardo (vs White)</td><td><strong>1.13</strong></td><td>1.10 -- 1.16</td><td><span class="badge badge-low">Low</span></td></tr>
+    <tr><td>Illiterate (vs Sup. compl.)</td><td><strong>1.40</strong></td><td>1.34 -- 1.46</td><td><span class="badge badge-high">High</span></td></tr>
+    <tr><td>Fund. incompl. (vs Sup. compl.)</td><td><strong>1.30</strong></td><td>1.26 -- 1.34</td><td><span class="badge badge-high">High</span></td></tr>
+    <tr><td>Fund. compl. (vs Sup. compl.)</td><td><strong>1.28</strong></td><td>1.24 -- 1.32</td><td><span class="badge badge-med">Moderate</span></td></tr>
+    <tr><td>Ensino medio (vs Sup. compl.)</td><td><strong>1.19</strong></td><td>1.15 -- 1.23</td><td><span class="badge badge-med">Moderate</span></td></tr>
+    <tr><td>Sup. incompl. (vs Sup. compl.)</td><td><strong>1.05</strong></td><td>0.95 -- 1.15</td><td><span class="badge" style="background:#e8e8e8;">None</span></td></tr>
+    <tr><td>North (vs Southeast)</td><td><strong>1.42</strong></td><td>1.35 -- 1.50</td><td><span class="badge badge-high">High</span></td></tr>
+    <tr><td>Northeast (vs Southeast)</td><td><strong>1.32</strong></td><td>1.28 -- 1.35</td><td><span class="badge badge-high">High</span></td></tr>
+    <tr><td>South (vs Southeast)</td><td><strong>1.23</strong></td><td>1.20 -- 1.26</td><td><span class="badge badge-med">Moderate</span></td></tr>
+    <tr><td>Central-West (vs Southeast)</td><td><strong>1.55</strong></td><td>1.45 -- 1.66</td><td><span class="badge badge-high">High</span></td></tr>
+  </table>
+</div>
+
+<div class="footnote">
+  <strong>Methods:</strong> Late-stage defined as clinical Stage III or IV. Odds ratios from multivariable logistic regression adjusting for age (continuous, standardized), sex, cancer site (10 categories), race, education, and region simultaneously. 95% confidence intervals from Wald approximation. Chi-square tests: Race chi2=187.2 (p &lt; 0.001), Education chi2=1013.0 (p &lt; 0.001), Region chi2=2342.7 (p &lt; 0.001). Cramer's V: Race=0.032, Education=0.064, Region=0.087. All tests highly significant but effect sizes are small to moderate, consistent with known social determinants of health literature. Analysis restricted to White, Black, and Pardo racial groups (96.7% of classified records).<br><br>
+  <strong>Limitations:</strong> Hospital-based registry (not population-based), so referral patterns may introduce selection bias. High "unknown" coding for race (30.9%) and education (23.8%) among unstaged records. Staging completeness varies by institution. Cross-sectional design -- cannot establish causality.
+</div>
+
+<script>
+// Race bar chart
+var raceData = [{"group": "Black", "rate": 54.0, "n": 12292}, {"group": "Pardo (Mixed)", "rate": 53.9, "n": 84236}, {"group": "White", "rate": 50.8, "n": 91337}, {"group": "Indigenous", "rate": 50.3, "n": 163}, {"group": "Asian", "rate": 50.0, "n": 1261}];
+Plotly.newPlot('chart_race', [{
+  x: raceData.map(d => d.group),
+  y: raceData.map(d => d.rate),
+  type: 'bar',
+  marker: { color: raceData.map(d => d.rate > 52 ? '#6b2fa0' : '#b8a9c9') },
+  text: raceData.map(d => d.rate.toFixed(1) + '%'),
+  textposition: 'outside',
+  hovertemplate: '%{x}<br>Late-stage: %{y:.1f}%<br>n=%{customdata:,}<extra></extra>',
+  customdata: raceData.map(d => d.n)
+}], {
+  title: 'Late-Stage Rate by Race/Skin Color',
+  yaxis: { title: 'Late-Stage %', range: [40, 60], ticksuffix: '%' },
+  template: 'plotly_white', margin: { t: 40, b: 80 },
+  shapes: [{ type: 'line', x0: -0.5, x1: 4.5, y0: 49.2, y1: 49.2, line: { dash: 'dash', color: '#999', width: 1 } }],
+  annotations: [{ x: 4.2, y: 49.2, text: 'Overall: 49.2%', showarrow: false, font: { size: 10, color: '#999' } }]
+}, { responsive: true });
+
+// Education bar chart
+var eduData = [{"group": "Illiterate", "rate": 53.6, "n": 22360}, {"group": "Fund. incompleto", "rate": 50.4, "n": 106132}, {"group": "Fund. completo", "rate": 50.2, "n": 49568}, {"group": "Ensino medio", "rate": 46.7, "n": 44356}, {"group": "Sup. incompleto", "rate": 46.1, "n": 2232}, {"group": "Sup. completo", "rate": 40.6, "n": 21785}];
+Plotly.newPlot('chart_edu', [{
+  x: eduData.map(d => d.group),
+  y: eduData.map(d => d.rate),
+  type: 'bar',
+  marker: { color: eduData.map((d,i) => {
+    var colors = ['#4a1942','#6b2fa0','#8b5fbf','#a982d0','#c5a3e0','#d1e7dd'];
+    return colors[i];
+  }) },
+  text: eduData.map(d => d.rate.toFixed(1) + '%'),
+  textposition: 'outside',
+  hovertemplate: '%{x}<br>Late-stage: %{y:.1f}%<br>n=%{customdata:,}<extra></extra>',
+  customdata: eduData.map(d => d.n)
+}], {
+  title: 'Late-Stage Rate by Education Level',
+  yaxis: { title: 'Late-Stage %', range: [35, 60], ticksuffix: '%' },
+  template: 'plotly_white', margin: { t: 40, b: 100 },
+  xaxis: { tickangle: -30 }
+}, { responsive: true });
+
+// Region bar chart
+var regData = [{"group": "Northeast", "rate": 54.7, "n": 55200}, {"group": "Central-West", "rate": 54.5, "n": 9488}, {"group": "South", "rate": 54.2, "n": 52116}, {"group": "North", "rate": 53.4, "n": 11577}, {"group": "Southeast", "rate": 45.5, "n": 178533}];
+Plotly.newPlot('chart_region', [{
+  x: regData.map(d => d.group),
+  y: regData.map(d => d.rate),
+  type: 'bar',
+  marker: { color: ['#d62728','#ff7f0e','#ff7f0e','#ff7f0e','#2ca02c'] },
+  text: regData.map(d => d.rate.toFixed(1) + '%'),
+  textposition: 'outside',
+  hovertemplate: '%{x}<br>Late-stage: %{y:.1f}%<br>n=%{customdata:,}<extra></extra>',
+  customdata: regData.map(d => d.n)
+}], {
+  title: 'Late-Stage Rate by Macro-Region',
+  yaxis: { title: 'Late-Stage %', range: [40, 60], ticksuffix: '%' },
+  template: 'plotly_white', margin: { t: 40, b: 60 }
+}, { responsive: true });
+
+// State horizontal bar (sorted)
+var stData = [{"state": "TO", "rate": 64.8, "n": 1587}, {"state": "AL", "rate": 62.4, "n": 2582}, {"state": "CE", "rate": 59.8, "n": 9387}, {"state": "MT", "rate": 59.1, "n": 3046}, {"state": "PB", "rate": 58.7, "n": 3293}, {"state": "PE", "rate": 57.8, "n": 8726}, {"state": "RJ", "rate": 57.4, "n": 13864}, {"state": "MA", "rate": 56.7, "n": 5002}, {"state": "RS", "rate": 56.6, "n": 21960}, {"state": "RN", "rate": 56.3, "n": 5798}, {"state": "DF", "rate": 55.2, "n": 1639}, {"state": "ES", "rate": 54.9, "n": 6975}, {"state": "SC", "rate": 54.8, "n": 9335}, {"state": "PA", "rate": 54.3, "n": 5134}, {"state": "MS", "rate": 52.1, "n": 3019}, {"state": "BA", "rate": 51.6, "n": 10773}, {"state": "GO", "rate": 51.2, "n": 1784}, {"state": "PR", "rate": 50.9, "n": 20821}, {"state": "PI", "rate": 49.2, "n": 3295}, {"state": "SE", "rate": 47.9, "n": 2644}, {"state": "RO", "rate": 47.6, "n": 1440}, {"state": "MG", "rate": 46.8, "n": 59477}, {"state": "AM", "rate": 45.6, "n": 2305}, {"state": "SP", "rate": 42.5, "n": 98217}];
+stData.reverse();
+Plotly.newPlot('chart_state', [{
+  y: stData.map(d => d.state),
+  x: stData.map(d => d.rate),
+  type: 'bar', orientation: 'h',
+  marker: { color: stData.map(d => {
+    if (d.rate > 57) return '#d62728';
+    if (d.rate > 52) return '#ff7f0e';
+    return '#2ca02c';
+  }) },
+  text: stData.map(d => d.rate.toFixed(1) + '%'),
+  textposition: 'outside',
+  hovertemplate: '%{y}<br>Late-stage: %{x:.1f}%<br>n=%{customdata:,}<extra></extra>',
+  customdata: stData.map(d => d.n)
+}], {
+  title: 'Late-Stage Rate by State',
+  xaxis: { title: 'Late-Stage %', range: [35, 70], ticksuffix: '%' },
+  template: 'plotly_white', margin: { t: 40, l: 50, r: 60 }, height: 600
+}, { responsive: true });
+
+// Forest plot for ORs
+var eqData = [{"var": "Age (per SD)", "or": 1.045, "ci_lo": 1.033, "ci_hi": 1.058}, {"var": "Male sex", "or": 1.189, "ci_lo": 1.15, "ci_hi": 1.228}, {"var": "Black (vs White)", "or": 1.189, "ci_lo": 1.137, "ci_hi": 1.244}, {"var": "Pardo (vs White)", "or": 1.132, "ci_lo": 1.102, "ci_hi": 1.163}, {"var": "Illiterate (vs Sup. compl.)", "or": 1.4, "ci_lo": 1.341, "ci_hi": 1.461}, {"var": "Fund. incompl. (vs Sup. compl.)", "or": 1.301, "ci_lo": 1.265, "ci_hi": 1.339}, {"var": "Fund. compl. (vs Sup. compl.)", "or": 1.28, "ci_lo": 1.238, "ci_hi": 1.324}, {"var": "Ensino medio (vs Sup. compl.)", "or": 1.19, "ci_lo": 1.152, "ci_hi": 1.23}, {"var": "Sup. incompl. (vs Sup. compl.)", "or": 1.046, "ci_lo": 0.952, "ci_hi": 1.149}, {"var": "North (vs Southeast)", "or": 1.42, "ci_lo": 1.348, "ci_hi": 1.496}, {"var": "Northeast (vs Southeast)", "or": 1.318, "ci_lo": 1.281, "ci_hi": 1.355}, {"var": "South (vs Southeast)", "or": 1.23, "ci_lo": 1.196, "ci_hi": 1.264}, {"var": "Central-West (vs Southeast)", "or": 1.547, "ci_lo": 1.446, "ci_hi": 1.656}];
+var labels = eqData.map(d => d['var']);
+var ors = eqData.map(d => d['or']);
+var ci_lo = eqData.map(d => d['ci_lo']);
+var ci_hi = eqData.map(d => d['ci_hi']);
+labels.reverse(); ors.reverse(); ci_lo.reverse(); ci_hi.reverse();
+
+Plotly.newPlot('chart_forest', [{
+  y: labels, x: ors, type: 'scatter', mode: 'markers',
+  marker: { size: 10, color: ors.map(o => o > 1 ? '#d62728' : '#2ca02c') },
+  error_x: {
+    type: 'data', symmetric: false,
+    array: ors.map((o, i) => ci_hi[i] - o),
+    arrayminus: ors.map((o, i) => o - ci_lo[i]),
+    color: '#666', thickness: 1.5
+  },
+  hovertemplate: '%{y}<br>OR: %{x:.2f}<extra></extra>'
+}], {
+  title: 'Adjusted Odds Ratios for Late-Stage Diagnosis',
+  xaxis: { title: 'Odds Ratio (log scale)', type: 'log', range: [Math.log10(0.85), Math.log10(1.7)] },
+  shapes: [{ type: 'line', x0: 1, x1: 1, y0: -0.5, y1: labels.length - 0.5, line: { dash: 'dash', color: 'black', width: 1 } }],
+  template: 'plotly_white', margin: { l: 230, t: 40 }, height: 480
+}, { responsive: true });
+
+// Heatmap: Race x Education
+var races = ['White','Pardo','Black'];
+var edus = ['Sup. completo','Ensino medio','Fund. completo','Fund. incompleto','Illiterate'];
+var crossData = [{"race": "Pardo", "edu": "Illiterate", "rate": 57.4, "n": 9968}, {"race": "Black", "edu": "Illiterate", "rate": 56.9, "n": 1522}, {"race": "Black", "edu": "Fund. completo", "rate": 56.3, "n": 1906}, {"race": "Pardo", "edu": "Fund. incompleto", "rate": 55.3, "n": 33381}, {"race": "Black", "edu": "Fund. incompleto", "rate": 54.0, "n": 5473}, {"race": "White", "edu": "Illiterate", "rate": 53.4, "n": 5380}, {"race": "White", "edu": "Fund. incompleto", "rate": 52.1, "n": 33995}, {"race": "Pardo", "edu": "Ensino medio", "rate": 50.3, "n": 11363}, {"race": "White", "edu": "Ensino medio", "rate": 48.8, "n": 15239}, {"race": "White", "edu": "Sup. completo", "rate": 43.4, "n": 6981}, {"race": "Pardo", "edu": "Sup. completo", "rate": 43.6, "n": 3251}];
+var zData = edus.map(e => races.map(r => {
+  var match = crossData.find(d => d.race === (r === 'Pardo' ? 'Pardo' : r) && d.edu === e);
+  return match ? match.rate : null;
+}));
+var textData = edus.map(e => races.map(r => {
+  var match = crossData.find(d => d.race === (r === 'Pardo' ? 'Pardo' : r) && d.edu === e);
+  return match ? match.rate.toFixed(1) + '%<br>n=' + match.n.toLocaleString() : '';
+}));
+
+Plotly.newPlot('chart_heatmap', [{
+  z: zData, x: races, y: edus, type: 'heatmap',
+  colorscale: [[0,'#d1e7dd'],[0.5,'#fff3cd'],[1,'#f8d7da']],
+  zmin: 40, zmax: 58,
+  text: zData.map(row => row.map(v => v ? v.toFixed(1) + '%' : '')),
+  texttemplate: '%{text}', textfont: { size: 14 },
+  hovertemplate: 'Race: %{x}<br>Education: %{y}<br>Late-stage: %{z:.1f}%<extra></extra>',
+  colorbar: { title: 'Late-Stage %', ticksuffix: '%' }
+}], {
+  title: 'Late-Stage Rate: Race x Education',
+  template: 'plotly_white', margin: { l: 150, t: 40 }, height: 350
+}, { responsive: true });
+
+</script>
+</body>
+</html>
