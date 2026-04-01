@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metrics Panel</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0f0f14; font-family: system-ui, sans-serif; color: #e8e6e3; padding: 1.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+    .metric {
+      background: #16161a;
+      border: 1px solid #2a2a32;
+      border-radius: 10px;
+      padding: 1.2rem;
+    }
+    .metric .label { font-size: 0.75rem; color: #8b8994; text-transform: uppercase; letter-spacing: 0.08em; }
+    .metric .value { font-size: 2rem; font-weight: 300; margin-top: 0.3rem; }
+    .metric .change { font-size: 0.8rem; margin-top: 0.25rem; }
+    .up { color: #6ecfa0; }
+    .down { color: #e06c5a; }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="metric"><div class="label">Revenue</div><div class="value" style="color:#c9a96e">$42.8k</div><div class="change up">+12.3%</div></div>
+    <div class="metric"><div class="label">Users</div><div class="value">1,847</div><div class="change up">+8.1%</div></div>
+    <div class="metric"><div class="label">Churn</div><div class="value">2.4%</div><div class="change down">+0.3%</div></div>
+    <div class="metric"><div class="label">NPS</div><div class="value" style="color:#6ecfa0">72</div><div class="change up">+5</div></div>
+  </div>
+</body>
+</html>

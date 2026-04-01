@@ -1,0 +1,27 @@
+Project Ideas - April 2026
+==========================
+
+1. Interactive data visualization dashboard
+   - Real-time charts with WebSocket updates
+   - Dark theme, responsive grid layout
+   - Export to PNG / PDF
+
+2. CSS art gallery
+   - Pure CSS illustrations
+   - No JavaScript, no images
+   - Animated hover states
+
+3. Markdown editor with live preview
+   - Split pane layout
+   - Syntax highlighting
+   - Export to HTML
+
+4. Portfolio site generator
+   - Takes a JSON config
+   - Outputs a static site
+   - Multiple themes
+
+5. WebGL particle system
+   - Mouse-reactive particles
+   - Configurable colors and physics
+   - Performance optimized

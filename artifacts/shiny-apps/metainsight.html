@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MetaInsight</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0c0c0f;color:#e8e6e3;min-height:100vh;padding:2.5rem}
+.card{max-width:700px;margin:0 auto}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;padding:.25rem .6rem;border-radius:100px;margin-right:.4rem;margin-bottom:.4rem}
+.badge-shiny{background:rgba(54,151,211,.15);color:#3697d3}
+.badge-r{background:rgba(39,104,187,.15);color:#2768bb}
+.badge-nma{background:rgba(201,169,110,.15);color:#c9a96e}
+h1{font-size:2rem;font-weight:700;margin-bottom:.5rem}
+h1 span{color:#3697d3}
+.subtitle{color:#8b8994;font-size:1rem;margin-bottom:1.5rem;line-height:1.5}
+.section{margin-bottom:1.5rem}
+.section h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#8b8994;margin-bottom:.6rem;font-weight:600}
+.section p,.section li{color:#c4c2be;font-size:.92rem;line-height:1.65}
+.section ul{padding-left:1.2rem}
+.section li{margin-bottom:.3rem}
+.tech-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.run-box{background:#16161a;border:1px solid #2a2a32;border-radius:8px;padding:1rem 1.2rem;font-family:'Courier New',monospace;font-size:.85rem;color:#c9a96e;margin-top:.5rem;white-space:pre-wrap}
+a{color:#3697d3;text-decoration:none}
+a:hover{text-decoration:underline}
+.divider{border:none;border-top:1px solid #2a2a32;margin:1.5rem 0}
+.icon{font-size:3rem;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">&#128202;</div>
+  <h1>Meta<span>Insight</span></h1>
+  <p class="subtitle">An interactive web tool for Network Meta-Analysis (NMA) that leverages established analysis routines. Built by CRSU-Apps.</p>
+  <div class="tech-grid">
+    <span class="badge badge-shiny">Shiny</span>
+    <span class="badge badge-r">R</span>
+    <span class="badge badge-nma">Network Meta-Analysis</span>
+    <span class="badge badge-r">shinydashboard</span>
+    <span class="badge badge-r">shinyjs</span>
+  </div>
+  <hr class="divider"/>
+  <div class="section">
+    <h2>Features</h2>
+    <ul>
+      <li>Load and validate NMA datasets</li>
+      <li>Run pairwise and network meta-analysis</li>
+      <li>Interactive forest plots and network graphs</li>
+      <li>Ranking panels with SUCRA scores</li>
+      <li>Comprehensive user guide and troubleshooting</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Source</h2>
+    <p><a href="https://github.com/CRSU-Apps/MetaInsight" target="_blank">github.com/CRSU-Apps/MetaInsight</a></p>
+  </div>
+  <div class="section">
+    <h2>Run Locally</h2>
+    <div class="run-box">R -e "shiny::runApp('~/Documents/GitHub/MetaInsight')"</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Appsilon Enterprise Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0c0c0f;color:#e8e6e3;min-height:100vh;padding:2.5rem}
+.card{max-width:700px;margin:0 auto}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;padding:.25rem .6rem;border-radius:100px;margin-right:.4rem;margin-bottom:.4rem}
+.badge-shiny{background:rgba(54,151,211,.15);color:#3697d3}
+.badge-r{background:rgba(39,104,187,.15);color:#2768bb}
+.badge-ent{background:rgba(166,107,190,.15);color:#a66bbe}
+h1{font-size:2rem;font-weight:700;margin-bottom:.5rem}
+h1 span{color:#a66bbe}
+.subtitle{color:#8b8994;font-size:1rem;margin-bottom:1.5rem;line-height:1.5}
+.section{margin-bottom:1.5rem}
+.section h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#8b8994;margin-bottom:.6rem;font-weight:600}
+.section p,.section li{color:#c4c2be;font-size:.92rem;line-height:1.65}
+.section ul{padding-left:1.2rem}
+.section li{margin-bottom:.3rem}
+.tech-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.run-box{background:#16161a;border:1px solid #2a2a32;border-radius:8px;padding:1rem 1.2rem;font-family:'Courier New',monospace;font-size:.85rem;color:#c9a96e;margin-top:.5rem;white-space:pre-wrap}
+.app-list{list-style:none;padding:0}
+.app-list li{background:#16161a;border:1px solid #2a2a32;border-radius:8px;padding:.8rem 1rem;margin-bottom:.5rem}
+.app-list li strong{color:#e8e6e3}
+.app-list li span{color:#8b8994;font-size:.85rem}
+.divider{border:none;border-top:1px solid #2a2a32;margin:1.5rem 0}
+.icon{font-size:3rem;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">&#127970;</div>
+  <h1>Appsilon <span>Templates Bundle</span></h1>
+  <p class="subtitle">Enterprise-grade Shiny dashboard templates by Appsilon. Production-ready designs with custom HTML, SASS, Fluent UI, and modular architecture.</p>
+  <div class="tech-grid">
+    <span class="badge badge-shiny">Shiny</span>
+    <span class="badge badge-r">shinydashboard</span>
+    <span class="badge badge-ent">Enterprise</span>
+    <span class="badge badge-r">shiny.fluent</span>
+    <span class="badge badge-r">SASS</span>
+  </div>
+  <hr class="divider"/>
+  <div class="section">
+    <h2>Included Templates</h2>
+    <ul class="app-list">
+      <li><strong>Enterprise Dashboard</strong><br/><span>KPI metrics, time charts, breakdown charts, country map. HTML-template-based layout.</span></li>
+      <li><strong>Destination Overview</strong><br/><span>Multi-tab dashboard with SASS styling. Simple and advanced views.</span></li>
+      <li><strong>Basic Destination Overview</strong><br/><span>Single-page CSS grid layout with metrics, state table, and city bar chart.</span></li>
+      <li><strong>Fluent UI App</strong><br/><span>Microsoft Fluent UI design system with shiny.router for page routing.</span></li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Run Locally</h2>
+    <div class="run-box">R -e "shiny::runApp('~/Documents/Appsilon-Shiny-Templates-Bundle/shiny-enterprise-dashboard')"</div>
+  </div>
+</div>
+</body>
+</html>

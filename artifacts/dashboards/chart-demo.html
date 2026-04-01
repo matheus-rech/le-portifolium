@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chart Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0f0f14; font-family: system-ui, sans-serif; color: #e8e6e3; padding: 2rem; }
+    h3 { font-weight: 300; margin-bottom: 1rem; font-size: 1.1rem; }
+    .chart { display: flex; align-items: flex-end; gap: 8px; height: 180px; padding-top: 1rem; }
+    .bar {
+      flex: 1;
+      background: linear-gradient(to top, #c9a96e, #e8d5a8);
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      transition: opacity 0.2s;
+      animation: grow 0.8s ease both;
+    }
+    .bar:hover { opacity: 0.8; }
+    .bar::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: -1.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.65rem;
+      color: #8b8994;
+    }
+    @keyframes grow { from { height: 0 !important; } }
+    .labels { display: flex; gap: 8px; margin-top: 2rem; }
+    .labels span { flex: 1; text-align: center; font-size: 0.65rem; color: #8b8994; }
+  </style>
+</head>
+<body>
+  <h3>Monthly Revenue</h3>
+  <div class="chart">
+    <div class="bar" style="height:40%" data-label="Jan"></div>
+    <div class="bar" style="height:55%" data-label="Feb"></div>
+    <div class="bar" style="height:45%" data-label="Mar"></div>
+    <div class="bar" style="height:70%" data-label="Apr"></div>
+    <div class="bar" style="height:65%" data-label="May"></div>
+    <div class="bar" style="height:85%" data-label="Jun"></div>
+    <div class="bar" style="height:75%" data-label="Jul"></div>
+    <div class="bar" style="height:90%" data-label="Aug"></div>
+    <div class="bar" style="height:80%" data-label="Sep"></div>
+    <div class="bar" style="height:95%" data-label="Oct"></div>
+    <div class="bar" style="height:88%" data-label="Nov"></div>
+    <div class="bar" style="height:100%" data-label="Dec"></div>
+  </div>
+</body>
+</html>

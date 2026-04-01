@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSX Viewer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; }
+    #root { min-height: 100vh; }
+    .viewer-error {
+      padding: 2rem;
+      color: #e06c5a;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    .viewer-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"><div class="viewer-loading">Loading component...</div></div>
+  <script>
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const file = params.get('file');
+      if (!file) {
+        document.getElementById('root').innerHTML = '<div class="viewer-error">No file specified. Use ?file=path/to/component.jsx</div>';
+        return;
+      }
+
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Failed to load ${file}: ${res.status}`);
+        let code = await res.text();
+
+        // Transform JSX with Babel
+        const transformed = Babel.transform(code, {
+          presets: ['react'],
+          plugins: [],
+        }).code;
+
+        // Create a module-like scope and execute
+        const module = { exports: {} };
+        const exports = module.exports;
+        const fn = new Function('React', 'module', 'exports', 'require', transformed);
+        fn(React, module, exports, function require(name) {
+          if (name === 'react') return React;
+          if (name === 'react-dom') return ReactDOM;
+          throw new Error(`Cannot require "${name}" in the viewer`);
+        });
+
+        // Get the default export
+        const Component = module.exports.default || module.exports;
+
+        if (typeof Component === 'function') {
+          ReactDOM.render(React.createElement(Component), document.getElementById('root'));
+        } else if (React.isValidElement(Component)) {
+          ReactDOM.render(Component, document.getElementById('root'));
+        } else {
+          document.getElementById('root').innerHTML = '<div class="viewer-error">Module does not export a React component.</div>';
+        }
+      } catch (err) {
+        document.getElementById('root').innerHTML = `<div class="viewer-error">Error rendering component:\n${err.message}</div>`;
+      }
+    })();
+  </script>
+</body>
+</html>

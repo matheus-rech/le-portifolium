@@ -1,0 +1,139 @@
+{
+  "generated": "2026-04-01T22:00:30.839Z",
+  "count": 18,
+  "folders": [
+    "components",
+    "dashboards",
+    "notes",
+    "quarto",
+    "shiny-apps"
+  ],
+  "artifacts": [
+    {
+      "filename": "cochrane-meta-report.html",
+      "path": "quarto/cochrane-meta-report.html",
+      "folder": "quarto",
+      "size": 3826,
+      "modified": "2026-04-01T21:55:47.490Z"
+    },
+    {
+      "filename": "appsilon-enterprise.html",
+      "path": "shiny-apps/appsilon-enterprise.html",
+      "folder": "shiny-apps",
+      "size": 3249,
+      "modified": "2026-04-01T21:55:31.150Z"
+    },
+    {
+      "filename": "rtutor.html",
+      "path": "shiny-apps/rtutor.html",
+      "folder": "shiny-apps",
+      "size": 2460,
+      "modified": "2026-04-01T21:55:17.742Z"
+    },
+    {
+      "filename": "meta-analysis-api.html",
+      "path": "shiny-apps/meta-analysis-api.html",
+      "folder": "shiny-apps",
+      "size": 3017,
+      "modified": "2026-04-01T21:55:09.222Z"
+    },
+    {
+      "filename": "gradio-meta-calculator.html",
+      "path": "shiny-apps/gradio-meta-calculator.html",
+      "folder": "shiny-apps",
+      "size": 2629,
+      "modified": "2026-04-01T21:54:58.480Z"
+    },
+    {
+      "filename": "ai-library-executor.html",
+      "path": "shiny-apps/ai-library-executor.html",
+      "folder": "shiny-apps",
+      "size": 2378,
+      "modified": "2026-04-01T21:54:47.193Z"
+    },
+    {
+      "filename": "tsa-observatory.html",
+      "path": "shiny-apps/tsa-observatory.html",
+      "folder": "shiny-apps",
+      "size": 2901,
+      "modified": "2026-04-01T21:54:37.746Z"
+    },
+    {
+      "filename": "metainsight.html",
+      "path": "shiny-apps/metainsight.html",
+      "folder": "shiny-apps",
+      "size": 2829,
+      "modified": "2026-04-01T21:54:25.985Z"
+    },
+    {
+      "filename": "project-ideas.txt",
+      "path": "notes/project-ideas.txt",
+      "folder": "notes",
+      "size": 642,
+      "modified": "2026-04-01T21:53:59.564Z"
+    },
+    {
+      "filename": "meeting-notes.md",
+      "path": "notes/meeting-notes.md",
+      "folder": "notes",
+      "size": 632,
+      "modified": "2026-04-01T21:53:58.370Z"
+    },
+    {
+      "filename": "logo-mark.svg",
+      "path": "components/logo-mark.svg",
+      "folder": "components",
+      "size": 578,
+      "modified": "2026-04-01T21:53:57.030Z"
+    },
+    {
+      "filename": "color-palette.jsx",
+      "path": "components/color-palette.jsx",
+      "folder": "components",
+      "size": 1572,
+      "modified": "2026-04-01T21:53:55.911Z"
+    },
+    {
+      "filename": "metrics-panel.html",
+      "path": "dashboards/metrics-panel.html",
+      "folder": "dashboards",
+      "size": 1497,
+      "modified": "2026-04-01T21:53:55.366Z"
+    },
+    {
+      "filename": "chart-demo.html",
+      "path": "dashboards/chart-demo.html",
+      "folder": "dashboards",
+      "size": 2035,
+      "modified": "2026-04-01T21:53:53.909Z"
+    },
+    {
+      "filename": "color-palette.jsx",
+      "path": "color-palette.jsx",
+      "folder": null,
+      "size": 1572,
+      "modified": "2026-04-01T21:53:52.669Z"
+    },
+    {
+      "filename": "sample-notes.md",
+      "path": "sample-notes.md",
+      "folder": null,
+      "size": 658,
+      "modified": "2026-04-01T21:53:51.240Z"
+    },
+    {
+      "filename": "interactive-counter.html",
+      "path": "interactive-counter.html",
+      "folder": null,
+      "size": 1681,
+      "modified": "2026-04-01T21:53:51.236Z"
+    },
+    {
+      "filename": "hello-world.html",
+      "path": "hello-world.html",
+      "folder": null,
+      "size": 1069,
+      "modified": "2026-04-01T21:53:49.774Z"
+    }
+  ]
+}

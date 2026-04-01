@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cochrane Meta-Analysis Report Template</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0c0c0f;color:#e8e6e3;min-height:100vh;padding:2.5rem}
+.card{max-width:700px;margin:0 auto}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;padding:.25rem .6rem;border-radius:100px;margin-right:.4rem;margin-bottom:.4rem}
+.badge-quarto{background:rgba(69,147,209,.15);color:#4593d1}
+.badge-r{background:rgba(39,104,187,.15);color:#2768bb}
+.badge-cochrane{background:rgba(201,169,110,.15);color:#c9a96e}
+h1{font-size:2rem;font-weight:700;margin-bottom:.5rem}
+h1 span{color:#4593d1}
+.subtitle{color:#8b8994;font-size:1rem;margin-bottom:1.5rem;line-height:1.5}
+.section{margin-bottom:1.5rem}
+.section h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#8b8994;margin-bottom:.6rem;font-weight:600}
+.section p,.section li{color:#c4c2be;font-size:.92rem;line-height:1.65}
+.section ul{padding-left:1.2rem}
+.section li{margin-bottom:.3rem}
+.tech-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.run-box{background:#16161a;border:1px solid #2a2a32;border-radius:8px;padding:1rem 1.2rem;font-family:'Courier New',monospace;font-size:.85rem;color:#c9a96e;margin-top:.5rem;white-space:pre-wrap}
+.param-table{width:100%;border-collapse:collapse;margin-top:.5rem}
+.param-table th,.param-table td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid #2a2a32;font-size:.85rem}
+.param-table th{color:#8b8994;font-weight:600;font-size:.75rem;text-transform:uppercase}
+.param-table td:first-child{font-family:monospace;color:#c9a96e}
+.divider{border:none;border-top:1px solid #2a2a32;margin:1.5rem 0}
+.icon{font-size:3rem;margin-bottom:1rem}
+code{background:#16161a;padding:.15rem .4rem;border-radius:4px;font-size:.85rem;color:#c9a96e}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">&#128220;</div>
+  <h1>Cochrane <span>Meta-Analysis Report</span></h1>
+  <p class="subtitle">Parameterized Quarto report template for Cochrane-style meta-analysis. Generates executive summaries with forest plots, funnel plots, heterogeneity stats, and interpretation. Outputs to HTML (cosmo theme) and PDF.</p>
+  <div class="tech-grid">
+    <span class="badge badge-quarto">Quarto (.qmd)</span>
+    <span class="badge badge-r">R + knitr</span>
+    <span class="badge badge-cochrane">Cochrane</span>
+    <span class="badge badge-quarto">embed-resources</span>
+  </div>
+  <hr class="divider"/>
+  <div class="section">
+    <h2>Parameters</h2>
+    <table class="param-table">
+      <tr><th>Param</th><th>Description</th></tr>
+      <tr><td>n_studies</td><td>Number of included studies</td></tr>
+      <tr><td>intervention</td><td>Intervention name</td></tr>
+      <tr><td>comparison</td><td>Comparator name</td></tr>
+      <tr><td>pooled_or</td><td>Pooled Odds Ratio</td></tr>
+      <tr><td>I2</td><td>Heterogeneity (I-squared)</td></tr>
+      <tr><td>forest_plot_path</td><td>Path to forest plot image</td></tr>
+      <tr><td>funnel_plot_path</td><td>Path to funnel plot image</td></tr>
+    </table>
+  </div>
+  <div class="section">
+    <h2>Report Sections</h2>
+    <ul>
+      <li>Executive Summary with key finding callout</li>
+      <li>Methods and statistical approach</li>
+      <li>Forest plot and funnel plot visualization</li>
+      <li>Heterogeneity assessment (I2, Q, tau2)</li>
+      <li>Interpretation and clinical significance</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Render</h2>
+    <div class="run-box">quarto render generate_report.qmd \
+  -P intervention:"Drug A" \
+  -P comparison:"Placebo" \
+  -P n_studies:12 \
+  --to html</div>
+  </div>
+</div>
+</body>
+</html>
